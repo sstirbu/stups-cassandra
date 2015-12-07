@@ -37,6 +37,7 @@ ADD https://bintray.com/artifact/download/lmineiro/maven/cassandra-etcd-seed-pro
 
 COPY cassandraSnapshotter.sh /opt/cassandra/bin/cassandraSnapshotter.sh
 COPY snapshotScheduler.sh /opt/cassandra/bin/snapshotScheduler.sh
+COPY seedHeartBeat.sh /opt/cassandra/bin/seedHeartBeat.sh
 
 COPY stups-cassandra.sh /opt/cassandra/bin/
 

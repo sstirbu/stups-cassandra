@@ -9,19 +9,19 @@
 export CASSANDRA_HOME=/opt/cassandra
 export CASSANDRA_INCLUDE=${CASSANDRA_HOME}/bin/cassandra.in.sh
 
-if [ -z "$LISTEN_ADDRESS" ] ;
-then
-    export LISTEN_ADDRESS=$(curl -Ls -m 4 http://169.254.169.254/latest/meta-data/local-ipv4)
-fi
-
 EC2_META_URL=http://169.254.169.254/latest/meta-data
 NODE_HOSTNAME=$(curl -s ${EC2_META_URL}/local-hostname)
 NODE_ZONE=$(curl -s ${EC2_META_URL}/placement/availability-zone)
 
+if [ -z "$LISTEN_ADDRESS" ] ;
+then
+    ${EC2_META_URL}/export LISTEN_ADDRESS=$(curl -Ls -m 4 ${EC2_META_URL}/local-ipv4)
+fi
+
 NEEDED_SEEDS=$((CLUSTER_SIZE >= 3 ? 3 : 1))
 
 SLEEP=10
-TTL=30
+TTL=${TTL:-30}
 
 
 if [ -z "$ETCD_URL" ] ;
